@@ -79,6 +79,7 @@ export default {
   .aside {
     border-right: 1px solid $borderColor;
     background: #fff;
+    overflow: hidden;
     .collapse-btn {
       width: 100%;
       padding: 10px 17px;
