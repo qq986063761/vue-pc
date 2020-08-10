@@ -9,5 +9,16 @@ export default [
         name: '评论'
       }
     ]
+  },
+  {
+    iconType: 'sketch',
+    key: 'directives',
+    name: '指令',
+    children: [
+      {
+        key: 'drClick',
+        name: '防重复点击'
+      }
+    ]
   }
 ]

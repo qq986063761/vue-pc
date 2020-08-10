@@ -8,7 +8,12 @@ const routes = [
   {
     path: '/comment',
     name: 'comment',
-    component: () => import(/* webpackChunkName: "components" */ '../views/components/comment.vue')
+    component: () => import(/* webpackChunkName: "components" */ '../views/components/comment')
+  },
+  {
+    path: '/drClick',
+    name: 'drClick',
+    component: () => import(/* webpackChunkName: "directives" */ '../views/directives/drClick')
   }
 ]
 
