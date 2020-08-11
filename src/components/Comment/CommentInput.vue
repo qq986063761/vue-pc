@@ -137,6 +137,9 @@
 
 <style lang="scss">
   .w-comment-input {
+    padding: 5px;
+    background: #fff;
+    border-radius: 4px;
     .textinput-wrap {
       position: relative;
       .textinput {

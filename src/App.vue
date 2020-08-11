@@ -63,12 +63,11 @@ export default {
 <style lang="scss" scoped>
 #app {
   height: 100vh;
-  background: #fff;
 
   .header {
     position: relative;
     padding: 0 20px;
-    background: #fff;
+    background-color: #00e079;
     box-shadow: 0 2px 8px #f0f1f2;
     z-index: 1;
     .logo {
@@ -78,7 +77,7 @@ export default {
 
   .aside {
     border-right: 1px solid $borderColor;
-    background: #fff;
+    background: #d2f0f4;
     overflow: hidden;
     .collapse-btn {
       width: 100%;
@@ -92,9 +91,13 @@ export default {
     .menu {
       border-right: none;
     }
+    /deep/ .ant-menu {
+      background: #d2f0f4;
+    }
   }
 
   .content {
+    background: #44cef6;
     .content-view {
       padding: 20px;
     }
@@ -103,6 +106,7 @@ export default {
   .footer {
     border-top: 1px solid $borderColor;
     text-align: center;
+    background: #75878a;
   }
 }
 </style>
