@@ -106,19 +106,24 @@
       },
       submit() {
         const {input} = this.$refs
-        const text = input.innerHTML.replace(/<span class="at-item".+<\/span>&nbsp;/g, '')
+
+        let text = input.innerHTML
+
+        // 收集 @ 项，顺便处理 at 文本内容
+        const atElements = [...input.querySelectorAll('.at-item')]
+        const usrs = atElements.map(el => {
+          text = text.replace(new RegExp(el.outerHTML + '(&nbsp;)?'), '')
+
+          return {
+            employeeId: el.getAttribute('data-userId'),
+            name: el.getAttribute('data-name')
+          }
+        })
 
         if (!text) {
           this.$message.warning('请输入内容')
           return
         }
-
-        // 收集 @ 项
-        const atElements = [...input.querySelectorAll('.at-item')]
-        const usrs = atElements.map(el => ({
-          employeeId: el.getAttribute('data-userId'),
-          name: el.getAttribute('data-name')
-        }))
 
         // 重置
         this.init()
