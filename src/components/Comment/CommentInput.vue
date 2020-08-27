@@ -86,10 +86,10 @@
       showAtOpts() {
         this.showUsrs = true
       },
-      input() {
+      input(event) {
         const {input} = this.$refs
         // 如果输入了 @ 则选人
-        const lastCh = input.innerText[input.innerText.length - 1]
+        const lastCh = input.innerText[input.innerText.length - 1] && event.data === '@'
         if (lastCh === '@') {
           this.inputAt = true
           this.showAtOpts()
