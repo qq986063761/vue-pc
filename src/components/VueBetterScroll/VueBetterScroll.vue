@@ -17,11 +17,6 @@
       pullDown: Boolean,
       pullUp: Boolean
     },
-    data() {
-      return {
-
-      }
-    },
     methods: {
       resize: debounce(function () {
         this.refresh()
@@ -56,20 +51,25 @@
         })
         
         // 下拉加载
-        this.bs.on('pullingDown', event => {
-          this.$emit('pull-down')
-        })
+        if (this.pullDown) {
+          this.bs.on('pullingDown', event => {
+            this.$emit('pull-down')
+          })
+        }
 
         // 上拉加载
-        this.bs.on('pullingUp', event => {
-          this.$emit('pull-up')
-        })
+        if (this.pullUp) {
+          this.bs.on('pullingUp', event => {
+            this.$emit('pull-up')
+          })
+        }
 
         addResizeListener(this.$refs.content, this.resize)
       }
     },
     beforeDestroy() {
       removeResizeListener(this.$refs.content, this.resize)
+      this.bs.destroy()
     },
     mounted() {
       this.init()
