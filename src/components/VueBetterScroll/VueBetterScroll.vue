@@ -49,6 +49,8 @@
           },
           // 阻止冒泡，常用于内部还有子 better-scroll 容器的子配置
           stopPropagation: true,
+          // 避免内部事件无效
+          preventDefault: false,
           // 是否支持下拉刷新
           pullDownRefresh: this.pullDown,
           // 是否支持上拉加载
