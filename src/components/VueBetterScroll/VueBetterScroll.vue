@@ -49,8 +49,10 @@
           },
           // 阻止冒泡，常用于内部还有子 better-scroll 容器的子配置
           stopPropagation: true,
-          // 避免内部事件无效
-          preventDefault: false,
+          // 因为 bs 会阻止默认内部事件，所以这里需要指定哪些元素不阻止默认事件
+          preventDefaultException: {
+            tagName: /^(DIV|INPUT|TEXTAREA|BUTTON|SELECT|AUDIO)$/
+          },
           // 是否支持下拉刷新
           pullDownRefresh: this.pullDown,
           // 是否支持上拉加载
