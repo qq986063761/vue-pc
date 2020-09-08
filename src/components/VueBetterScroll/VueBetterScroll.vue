@@ -64,7 +64,7 @@
           stopPropagation: true,
           // 因为 bs 会阻止默认内部事件，所以这里需要指定哪些元素不阻止默认事件
           preventDefaultException: {
-            tagName: /^(DIV|INPUT|TEXTAREA|BUTTON|SELECT|AUDIO)$/
+            tagName: /^(DIV|SPAN|IMG|INPUT|TEXTAREA|BUTTON|SELECT|AUDIO)$/
           },
           // 是否支持下拉刷新
           pullDownRefresh: this.pullDown ? {
@@ -80,7 +80,7 @@
         if (this.pullDown) {
           this.bs.on('scroll', position => {
             if (position.y > 0) {
-              if (this.pullDowning === 1) {
+              if (this.emitPullDown) {
                 this.downImgStyle = null
                 return
               }
@@ -95,10 +95,14 @@
               this.downImgStyle = null
             }
           })
+
+          this.bs.on('scrollEnd', () => {
+            this.emitPullDown = false
+          })
           
           this.bs.on('pullingDown', event => {
             this.downImgStyle = null
-            this.pullDowning = 1
+            this.emitPullDown = true
             this.$emit('pull-down')
           })
         }
@@ -108,6 +112,7 @@
           this.bs.on('pullingUp', event => {
             this.startPullUp = true
             this.$emit('pull-up')
+
           })
         }
 
