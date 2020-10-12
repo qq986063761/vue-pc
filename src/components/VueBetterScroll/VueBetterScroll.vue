@@ -169,7 +169,7 @@
           }
 
           // 滚动后不断触发滚动状态校验
-          this.correctScrollStatus()
+          this.correctScrollStatus() 
         })
 
         this.bs.on('scrollEnd', () => {
