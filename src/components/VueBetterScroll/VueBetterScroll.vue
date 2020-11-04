@@ -104,7 +104,7 @@
           stopPropagation: true,
           // 因为 bs 会阻止默认内部事件，所以这里需要指定哪些元素不阻止默认事件
           preventDefaultException: {
-            tagName: /^(DIV|SPAN|IMG|INPUT|TEXTAREA|BUTTON|SELECT|AUDIO)$/
+            tagName: /^(DIV|SPAN|IMG|INPUT|TABLE|TR|TH|TD|TEXTAREA|BUTTON|SELECT|AUDIO)$/
           },
           scrollbar: {
             fade: true
