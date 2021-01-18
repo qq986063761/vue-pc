@@ -1,112 +1,135 @@
 <template>
-  <a-layout id="app">
-    <a-layout-header class="header">
-      <img class="logo" src="/static/vue-logo.png" />
-      <img class="logo" src="/static/antd-logo.svg" />
-    </a-layout-header>
-    <a-layout>
-      <a-layout-sider class="aside" v-model="collapsed" :trigger="null" collapsible>
-        <a-icon
-          class="collapse-btn"
-          :type="!collapsed ? 'menu-fold' : 'menu-unfold'"
-          @click="collapsed = !collapsed"
-        />
-        <a-menu
-          class="menu"
-          mode="inline"
-          :open-keys.sync="openKeys"
-          :default-selected-keys="[menus[0].children[0].key]"
-          @select="selectItem"
-        >
-          <a-sub-menu v-for="item in menus" :key="item.key">
-            <div slot="title">
-              <a-icon :type="item.iconType" />
-              <span>{{item.name}}</span>
-            </div>
-            <a-menu-item v-for="childItem in item.children" :key="childItem.key">
-              <span>{{childItem.name}}</span>
-            </a-menu-item>
-          </a-sub-menu>
-        </a-menu>
-      </a-layout-sider>
-      <a-layout>
-        <a-layout-content class="content">
-          <router-view class="content-view"></router-view>
-        </a-layout-content>
-        <a-layout-footer class="footer">Vue PC ©2020 Created by Peng</a-layout-footer>
-      </a-layout>
-    </a-layout>
-  </a-layout>
+  <div id="app">
+    <div class="app-header">
+      Vue
+    </div>
+    <div class="app-body">
+      <div class="app-side">
+        <template v-for="item in menus" >
+          <div 
+            class="menu-item menu-title" 
+            :key="item.key">
+            {{item.name}}
+          </div>
+          <div 
+            class="menu-item menu-child"
+            v-for="childItem in item.children" 
+            :key="childItem.key + 'item'"
+            :class="{active: childItem.key === $route.name}"
+            @click="clickItem(childItem)">
+            {{ childItem.name }}
+          </div>
+        </template>
+      </div>
+      <router-view class="app-view"></router-view>
+    </div>
+  </div>
 </template>
 
 <script>
-import menus from './assets/js/menus'
-
 export default {
   data() {
     return {
-      collapsed: false,
-      openKeys: [menus[0].key],
-      menus,
+      menus: [
+        {
+          iconType: 'appstore',
+          key: 'components',
+          name: '组件',
+          children: [
+            {
+              key: 'comment',
+              name: '评论'
+            }
+          ]
+        },
+        {
+          iconType: 'sketch',
+          key: 'directives',
+          name: '指令',
+          children: [
+            {
+              key: 'drClick',
+              name: '防重复点击'
+            }
+          ]
+        }
+      ]
     }
   },
   methods: {
-    selectItem({ item, key, selectedKeys }) {
+    clickItem(item) {
+      if (this.$route.name === item.key) return
       this.$router.push({
-        name: key
+        name: item.key
       })
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 #app {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
+  overflow: hidden;
+}
 
-  .header {
-    position: relative;
+.app-header {
+  height: 55px;
+  padding: 0 20px;
+  background-color: #4085ed;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  font-size: 30px;
+  color: #fff;
+  z-index: 1;
+  line-height: 55px;
+  flex-shrink: 0;
+}
+
+.app-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.app-side {
+  border-right: 1px solid #e1e1e1;
+  flex-shrink: 0;
+  overflow: auto;
+
+  .menu-item {
+    height: 40px;
     padding: 0 20px;
-    background-color: #00e079;
-    box-shadow: 0 2px 8px #f0f1f2;
-    z-index: 1;
-    .logo {
-      width: 45px;
-    }
+    line-height: 40px;
   }
 
-  .aside {
-    border-right: 1px solid $borderColor;
-    background: #d2f0f4;
-    overflow: hidden;
-    .collapse-btn {
-      width: 100%;
-      padding: 10px 17px;
-      font-size: 20px;
-      cursor: pointer;
-      &:hover {
-        color: $primaryColor;
-      }
-    }
-    .menu {
-      border-right: none;
-    }
-    /deep/ .ant-menu {
-      background: #d2f0f4;
-    }
+  .menu-title {
+    font-weight: bold;
   }
 
-  .content {
-    background: #44cef6;
-    .content-view {
-      padding: 20px;
+  .menu-child {
+    padding: 0 30px;
+    border-right: 2px solid transparent;
+    cursor: pointer;
+    &.active,
+    &:hover {
+      border-right: 2px solid #4085ed;
+      color: #4085ed;
+      background-color: #e7f1ff;
     }
   }
+}
 
-  .footer {
-    border-top: 1px solid $borderColor;
-    text-align: center;
-    background: #75878a;
-  }
+.app-view {
+  flex: 1;
+  padding: 20px;
+  overflow: auto;
 }
 </style>

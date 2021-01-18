@@ -20,7 +20,7 @@
 
 <script>
   import BScroll from 'better-scroll'
-  import {addResizeListener, removeResizeListener, getStyle} from '@/assets/js/dom'
+  import {addResizeListener, removeResizeListener, getStyle} from '@/assets/dom'
   import { debounce } from 'vux'
 
   export default {

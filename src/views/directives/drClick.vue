@@ -1,6 +1,6 @@
 <template>
   <div class="drclick-page">
-    <a-button type="danger" v-dr-click @click="click">Danger</a-button>
+    <button type="danger" v-dr-click @click="click">Danger</button>
   </div>
 </template>
 

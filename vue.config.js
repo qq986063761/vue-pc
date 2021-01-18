@@ -12,7 +12,7 @@ module.exports = {
         .use('sass-resources-loader')
         .loader('sass-resources-loader')
         .options({
-          resources: ['./src/assets/css/theme/var.scss']
+          resources: ['./src/assets/var.scss']
         })
         .end()
     })
