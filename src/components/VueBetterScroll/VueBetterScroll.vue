@@ -6,7 +6,7 @@
       <loading class="pull-up-slot" v-if="pullUp && startPullUp"></loading>
     </div>
 
-    <div class="pull-down-slot" v-if="pullDown && startPullDown">
+    <div class="pull-down-slot" v-if="maybePullDown && pullDown && startPullDown">
       <img class="icon" 
         :class="{rotate: !downImgStyle && pullDowning}" 
         :src="require('@/assets/img/refresh.svg')"
@@ -32,6 +32,7 @@
     data() {
       return {
         style: null,
+        maybePullDown: false,
         pullDowning: false,
         downImgStyle: null,
         startPullUp: false,
@@ -74,6 +75,7 @@
       finishPullUp() {
         this.startPullUp = false
         this.bs.finishPullUp()
+        console.log('finishPullUp')
       },
       // 数据有变化之后，要刷新
       refresh() {
@@ -102,7 +104,7 @@
           stopPropagation: true,
           // 因为 bs 会阻止默认内部事件，所以这里需要指定哪些元素不阻止默认事件
           preventDefaultException: {
-            tagName: /^(DIV|SPAN|IMG|INPUT|TEXTAREA|BUTTON|SELECT|AUDIO)$/
+            tagName: /^(DIV|SPAN|IMG|INPUT|TABLE|TR|TH|TD|TEXTAREA|BUTTON|SELECT|AUDIO)$/
           },
           scrollbar: {
             fade: true
@@ -127,7 +129,16 @@
           })
         }
 
+        hooks.on('beforeStart', event => {
+          this.maybePullDown = this.bs.y
+        })
+
         hooks.on('move', event => {
+          // 如果开始触摸到滑动是向下滑，则被认为可能是要下拉刷新了
+          if (this.maybePullDown === 0 && this.bs.y > 0) {
+            this.maybePullDown = true
+          }
+
           if (this.pullDown) {
             // 如果手指向下滑动
             if (this.bs.movingDirectionY < 0) {
@@ -137,7 +148,8 @@
         })
 
         this.bs.on('scroll', position => {
-          if (this.pullDown) {
+          // 下拉时，如果开始触摸位置是顶部，才算作下拉刷新
+          if (this.pullDown && this.maybePullDown) {
             if (position.y > 0) {
               if (this.emitPullDown) {
                 this.downImgStyle = null
@@ -157,7 +169,7 @@
           }
 
           // 滚动后不断触发滚动状态校验
-          this.correctScrollStatus()
+          this.correctScrollStatus() 
         })
 
         this.bs.on('scrollEnd', () => {
@@ -171,6 +183,7 @@
         if (this.pullUp) {
           this.bs.on('pullingUp', event => {
             this.startPullUp = true
+            console.log('pull-up')
             this.$emit('pull-up')
           })
         }
