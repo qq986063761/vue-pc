@@ -127,8 +127,9 @@ export default {
       setSelection(input)
     },
     showAtOpts() {
-      this.atPrevEl = window.getSelection && window.getSelection().focusNode && window.getSelection().focusNode.previousElementSibling
-      this.atOffset = window.getSelection && window.getSelection().focusOffset
+      const selection = window.getSelection && window.getSelection()
+      this.atPrevEl = selection && selection.focusNode && selection.focusNode.previousElementSibling
+      this.atOffset = selection && selection.focusOffset
       if (!this.atOffset && this.atOffset !== 0) this.atOffset = null
       this.showUsrs = true
     },
