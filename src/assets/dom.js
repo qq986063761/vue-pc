@@ -13,7 +13,7 @@ export function setSelection(el, offset) {
     if (offset !== undefined) {
       //把该范围的开始点设置为指定的节点中的指定偏移量
       range.setStart(el.firstChild, offset);
-      // range.setEnd(el.firstChild, 1);        
+      range.setEnd(el.firstChild, 1);        
     } else {
       // 定位到末尾
       range.selectNodeContents(el);

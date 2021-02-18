@@ -1,4 +1,4 @@
-import CommentInput from '../components/Comment/CommentInput'
+import CommentInput from '../components/Comment/Input'
 
 import drClick from '../directives/dr-click'
 
