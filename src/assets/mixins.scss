@@ -1,0 +1,20 @@
+@mixin primaryColor {
+  color: $primaryColor;
+  [data-theme=pur] & {
+    color: $purPrimaryColor;
+  }
+}
+
+@mixin primaryBgColor {
+  background-color: $primaryColor;
+  [data-theme=pur] & {
+    background-color: $purPrimaryColor;
+  }
+}
+
+@mixin primaryBdColor {
+  border-color: $primaryColor;
+  [data-theme=pur] & {
+    border-color: $purPrimaryColor;
+  }
+}

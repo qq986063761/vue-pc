@@ -3,7 +3,7 @@ const { ESBuildPlugin } = require('esbuild-loader')
 // 覆盖 webpack 配置
 module.exports = {
   // 路径配置
-  outputDir: 'dist/pc',
+  outputDir: 'docs',
   publicPath: './',
   // sourcemap
   productionSourceMap: false,
@@ -27,7 +27,7 @@ module.exports = {
         .use('sass-resources-loader')
         .loader('sass-resources-loader')
         .options({
-          resources: ['./src/assets/var.scss']
+          resources: ['./src/assets/var.scss', './src/assets/mixins.scss']
         })
         .end()
     })

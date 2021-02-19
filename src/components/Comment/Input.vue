@@ -207,7 +207,7 @@ export default {
       line-height: 20px;
       overflow: auto;
       .at-item {
-        color: $primaryColor;
+        @include primaryColor;
       }
     }
     .placeholder {
@@ -243,7 +243,7 @@ export default {
       cursor: pointer;
 
       &:hover {
-        color: $primaryColor;
+        @include primaryColor;
       }
 
       &:first-child {

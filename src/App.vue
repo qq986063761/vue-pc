@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <div class="app-header">
-      Vue
+      <div>Vue</div>
+      <div class="theme-select">
+        <div class="theme-option blu" @click="changeTheme('blu')"></div>
+        <div class="theme-option pur" @click="changeTheme('pur')"></div>
+      </div>
     </div>
     <div class="app-body">
       <div class="app-side">
@@ -57,6 +61,9 @@ export default {
     }
   },
   methods: {
+    changeTheme(type) {
+      document.documentElement.setAttribute('data-theme', type)
+    },
     clickItem(item) {
       if (this.$route.name === item.key) return
       this.$router.push({
@@ -82,15 +89,41 @@ body {
 }
 
 .app-header {
+  display: flex;
+  justify-content: space-between;
   height: 55px;
   padding: 0 20px;
-  background-color: #4085ed;
+  @include primaryBgColor;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   font-size: 30px;
   color: #fff;
   z-index: 1;
   line-height: 55px;
   flex-shrink: 0;
+  .theme-select {
+    display: flex;
+    align-items: center;
+  }
+  .theme-option {
+    width: 10px;
+    height: 10px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    transition: all .2s linear;
+    cursor: pointer;
+    + .theme-option {
+      margin-left: 10px;
+    }
+    &.blu {
+      background: $primaryColor;
+    }
+    &.pur {
+      background: $purPrimaryColor;
+    }
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
 }
 
 .app-body {
@@ -120,8 +153,9 @@ body {
     cursor: pointer;
     &.active,
     &:hover {
-      border-right: 2px solid #4085ed;
-      color: #4085ed;
+      @include primaryColor;
+      @include primaryBdColor;
+      border-right: 2px solid;
       background-color: #e7f1ff;
     }
   }
